@@ -78,8 +78,13 @@ namespace ChatOverlay
 
             try
             {
+                // Основные горячие клавиши
                 HotkeyManager.Current.AddOrReplace("SelectBlueRole", Key.Scroll, ModifierKeys.None, (sender, e) => SetRole("Blue"));
                 HotkeyManager.Current.AddOrReplace("SelectRedRole", Key.Pause, ModifierKeys.None, (sender, e) => SetRole("Red"));
+
+                // Альтернативные горячие клавиши для цифровой панели
+                HotkeyManager.Current.AddOrReplace("SelectRedRoleNumeric", Key.Multiply, ModifierKeys.None, (sender, e) => SetRole("Blue"));
+                HotkeyManager.Current.AddOrReplace("SelectBlueRoleNumeric", Key.Divide, ModifierKeys.None, (sender, e) => SetRole("Red"));
             }
             catch (System.Exception ex)
             {
@@ -95,6 +100,14 @@ namespace ChatOverlay
                 OnPropertyChanged(nameof(CurrentRoleColor));
                 OnPropertyChanged(nameof(CurrentRoleBackgroundColor));
 
+                // Окно становится активным и панели появляются
+                this.Activate();
+                TopPanel.Visibility = Visibility.Visible;
+                BottomPanel.Visibility = Visibility.Visible;
+            }
+
+            else
+            {
                 // Окно становится активным и панели появляются
                 this.Activate();
                 TopPanel.Visibility = Visibility.Visible;
